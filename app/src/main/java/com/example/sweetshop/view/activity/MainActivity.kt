@@ -1,7 +1,8 @@
-package com.example.sweetshop
+package com.example.sweetshop.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.sweetshop.R
 
 class MainActivity : AppCompatActivity() {
 

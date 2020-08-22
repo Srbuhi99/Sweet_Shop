@@ -40,7 +40,10 @@
             android:layout_marginBottom="2dp"
             app:elevation="6dp"
             android:scaleType="center"
+            app:tint="@color/colorWhite"
             android:src="@drawable/ic_basket_icon"
+            android:foregroundGravity="center"
+            app:fabCustomSize="54dp"
             app:backgroundTint="@color/colorPrimary"
             app:maxImageSize="22dp"
             />

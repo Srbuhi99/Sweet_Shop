@@ -8,12 +8,20 @@ android {
 
     defaultConfig {
         applicationId "com.example.sweetshop"
-        minSdkVersion 18
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     buildTypes {
@@ -63,4 +71,5 @@ dependencies {
 
     //material
     implementation 'com.google.android.material:material:1.2.0'
+    implementation "androidx.cardview:cardview:1.0.0"
 }

@@ -84,18 +84,18 @@ class CategoriesListAdapter(val context: Context, var data:ArrayList<String>)
             val displaymetrics = DisplayMetrics()
             (context as Activity).windowManager.defaultDisplay.getMetrics(displaymetrics)
 
-            val devicewidth = displaymetrics.widthPixels / 2
+            val devicewidth = displaymetrics.widthPixels / 2 - 10
 
-            val deviceheight = displaymetrics.heightPixels / 4
+            val deviceheight = displaymetrics.heightPixels / 4 + 20
 
             parentLayout.getLayoutParams().width = devicewidth
             parentLayout.getLayoutParams().height = deviceheight
 
 
-            categoryImage.layoutParams.width = devicewidth/2 -10
-            categoryImage.layoutParams.height = deviceheight/2 -10
+            categoryImage.layoutParams.width = devicewidth/2
+            categoryImage.layoutParams.height = devicewidth/2
 
-            cardRecView.layoutParams.width = devicewidth - 110
+            cardRecView.layoutParams.width = devicewidth - 120
         }
     }
 }

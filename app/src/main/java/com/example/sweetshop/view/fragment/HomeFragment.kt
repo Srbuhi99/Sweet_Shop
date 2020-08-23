@@ -12,14 +12,20 @@ import com.bumptech.glide.request.RequestOptions
 
 import com.example.sweetshop.R
 import com.example.sweetshop.view.adapter.CategoriesListAdapter
+import com.example.sweetshop.view.adapter.MostPopularListAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
 
     lateinit var categoryAdapter: CategoriesListAdapter
-    private var list: ArrayList<String> = ArrayList()
-    private var followersModelArrayList: ArrayList<String> = ArrayList()
+    lateinit var mostPopularListAdapter: MostPopularListAdapter
+    private var  list: ArrayList<String> = ArrayList()
+    private var  listString: ArrayList<String> = ArrayList()
+    private var  categoryArrayList: ArrayList<String> = ArrayList()
+    private var  mostPopularList: ArrayList<String> = ArrayList()
+
+
 
 
 
@@ -36,11 +42,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addAdapter()
-        initAdapter()
+        addCategoryAdapter()
+        addMostPopularAdapter()
+        initCategoryAdapter()
+        initMostPopularAdapter()
     }
 
-    fun addAdapter(){
+   private fun addCategoryAdapter(){
 
         categories_rec_view.layoutManager = activity?.let {
             LinearLayoutManager(
@@ -51,21 +59,47 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun initAdapter() {
+   private  fun addMostPopularAdapter(){
+        most_popular_list_rec_view.layoutManager = activity?.let {
+            LinearLayoutManager(
+                it, LinearLayoutManager.VERTICAL,
+                false
+            )
+        }
+    }
+
+    fun initCategoryAdapter() {
 
         for(i in 0..2) {
             var data = "Category"
             list.add(data)
         }
 
-            followersModelArrayList = list
-            categoryAdapter = activity?.let {
-                CategoriesListAdapter(
+            categoryArrayList = list
+              categoryAdapter= activity?.let {
+               CategoriesListAdapter(
                     requireContext(),
-                    followersModelArrayList!!
+                   categoryArrayList
                 )
             }!!
             categories_rec_view.adapter = categoryAdapter
+    }
+
+    fun initMostPopularAdapter() {
+
+        for(i in 0..4) {
+            var data = "Biscuits with chocolate"
+            listString.add(data)
+        }
+
+        mostPopularList = listString
+        mostPopularListAdapter = activity?.let {
+            MostPopularListAdapter(
+                requireContext(),
+                mostPopularList
+            )
+        }!!
+        most_popular_list_rec_view.adapter = mostPopularListAdapter
     }
 
 

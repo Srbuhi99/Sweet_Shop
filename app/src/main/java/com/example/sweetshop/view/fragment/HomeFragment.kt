@@ -6,11 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 import com.example.sweetshop.R
+import com.example.sweetshop.utils.OnItemClickListener
+import com.example.sweetshop.utils.addOnItemClickListener
 import com.example.sweetshop.view.adapter.CategoriesListAdapter
 import com.example.sweetshop.view.adapter.MostPopularListAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -20,11 +24,14 @@ class HomeFragment : Fragment() {
 
     lateinit var categoryAdapter: CategoriesListAdapter
     lateinit var mostPopularListAdapter: MostPopularListAdapter
+
     private var  list: ArrayList<String> = ArrayList()
     private var  listString: ArrayList<String> = ArrayList()
+
     private var  categoryArrayList: ArrayList<String> = ArrayList()
     private var  mostPopularList: ArrayList<String> = ArrayList()
 
+    lateinit var navController: NavController
 
 
 
@@ -42,10 +49,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = Navigation.findNavController(view)
+
         addCategoryAdapter()
         addMostPopularAdapter()
         initCategoryAdapter()
         initMostPopularAdapter()
+        addItemClickListener()
     }
 
    private fun addCategoryAdapter(){
@@ -102,8 +112,21 @@ class HomeFragment : Fragment() {
         most_popular_list_rec_view.adapter = mostPopularListAdapter
     }
 
+    fun addItemClickListener(){
+        most_popular_list_rec_view.addOnItemClickListener(object:
+            OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+                navController.navigate(R.id.action_homeFragment_to_productDetailsFragment)
+                mostPopularList.clear()
+                categoryArrayList.clear()
+            }
+        })
+
+
+    }
 
 
 
 
-}
+
+   }

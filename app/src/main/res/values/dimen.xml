@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="category_item_text_size">10dp</dimen>
+    <dimen name="category_item_main_text_size">15dp</dimen>
+    <dimen name="fragment_home_advert_btn_text_size">8dp</dimen>
+    <dimen name="fragment_home_advert_text_size">15dp</dimen>
+    <dimen name="fragment_home_category_product_text_size">20dp</dimen>
+    <dimen name="fragment_prod_detail_sweet_name_size">23dp</dimen>
+</resources>

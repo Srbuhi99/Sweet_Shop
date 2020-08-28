@@ -10,15 +10,15 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.sweetshop.R
+import com.example.sweetshop.model.CategoryModel
 import com.example.sweetshop.utils.RecyclerItemColorsUtil
 
 
-class CategoriesListAdapter(val context: Context, var data:ArrayList<String>)
+class CategoriesListAdapter(val context: Context, var category : CategoryModel)
     :RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>(){
 
 
@@ -31,16 +31,18 @@ class CategoriesListAdapter(val context: Context, var data:ArrayList<String>)
     }
 
     override fun getItemCount(): Int {
-       return data.size
+       return category.data.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(context, data[position])
+        holder.bindItems(context, category.data[position].categoryName
+                                , category.data[position].imageUrl,
+                                  category.data[position].productCount)
+
         holder.addColor(position)
         holder.addItemSizes(context)
 
     }
-
 
 
 
@@ -54,28 +56,39 @@ class CategoriesListAdapter(val context: Context, var data:ArrayList<String>)
         var parentLayout: RelativeLayout
         var cardRecView: RelativeLayout
         var categoryImage :ImageView
+        var productCount:TextView
 
         init {
             categoryTitle = itemView!!.findViewById(R.id.category_title)
             cardViewMain = itemView.findViewById(R.id.card_view_main)
-            parentLayout = itemView.findViewById(R.id.image_view)
+            parentLayout = itemView.findViewById(R.id.horizontal_view)
             cardRecView = itemView.findViewById(R.id.card_rec_view)
             categoryImage = itemView.findViewById(R.id.category_image)
+            productCount = itemView.findViewById(R.id.product_count_text)
         }
 
-        fun bindItems(context: Context, title: String) {
+
+        fun bindItems(context: Context, title: String,imageUrl:String, count:Int) {
 
             categoryTitle.text  = title
+            productCount.text = count.toString()
 
-            Glide.with(context).load("https://homepages.cae.wisc.edu/~ece533/images/fruits.png")
+            Glide.with(context).load(imageUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(categoryImage)
         }
 
         fun addColor(position: Int){
 
-             if(position <= recyclerItemColorsUtil.colorArray.size-1)
+            val arrayIndex = recyclerItemColorsUtil.colorArray.size-1
+            val colorArraySize = recyclerItemColorsUtil.colorArray.size
+
+             if(position <= arrayIndex){
             cardViewMain.setBackgroundResource(recyclerItemColorsUtil.colorArray[position])
+             }
+            else{
+                 cardViewMain.setBackgroundResource(recyclerItemColorsUtil.colorArray[position - colorArraySize])
+             }
 
         }
 

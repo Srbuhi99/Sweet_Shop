@@ -6,17 +6,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
 import com.example.sweetshop.R
+import com.example.sweetshop.api.ApiHelper
+import com.example.sweetshop.api.RetrofitBuilder
+import com.example.sweetshop.common.Status
+import com.example.sweetshop.model.MostPopularProductsModel
+import com.example.sweetshop.model.CategoryModel
 import com.example.sweetshop.utils.OnItemClickListener
 import com.example.sweetshop.utils.addOnItemClickListener
 import com.example.sweetshop.view.adapter.CategoriesListAdapter
 import com.example.sweetshop.view.adapter.MostPopularListAdapter
+import com.example.sweetshop.viewmodel.HomeViewModel
+import com.example.sweetshop.viewmodel.base.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -25,13 +33,13 @@ class HomeFragment : Fragment() {
     lateinit var categoryAdapter: CategoriesListAdapter
     lateinit var mostPopularListAdapter: MostPopularListAdapter
 
-    private var  list: ArrayList<String> = ArrayList()
-    private var  listString: ArrayList<String> = ArrayList()
 
-    private var  categoryArrayList: ArrayList<String> = ArrayList()
-    private var  mostPopularList: ArrayList<String> = ArrayList()
+    private lateinit var  category: CategoryModel
+    private lateinit var  mostPopularProduct:  MostPopularProductsModel
+
 
     lateinit var navController: NavController
+    private lateinit var viewModel: HomeViewModel
 
 
 
@@ -51,12 +59,65 @@ class HomeFragment : Fragment() {
 
         navController = Navigation.findNavController(view)
 
+        setupViewModel()
+
         addCategoryAdapter()
         addMostPopularAdapter()
-        initCategoryAdapter()
-        initMostPopularAdapter()
         addItemClickListener()
+        setupObserversToCategory()
+        setupObserversToProducts()
+        addScrollListener()
     }
+
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProviders.of(
+            this,
+            ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
+        ).get(HomeViewModel::class.java)
+    }
+
+    private fun setupObserversToCategory() {
+        viewModel.getCategories().observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { category -> initCategoryAdapter(category) }
+                    }
+                    Status.ERROR -> {
+
+                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+
+                    }
+                }
+            }
+        })
+    }
+
+    private fun setupObserversToProducts(){
+        viewModel.getMostPopularProducts().observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+
+                        resource.data?.let { product -> initMostPopularAdapter(product) }
+                    }
+                    Status.ERROR -> {
+
+                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+
+                    }
+                }
+            }
+        })
+    }
+
+
+
 
    private fun addCategoryAdapter(){
 
@@ -78,35 +139,26 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun initCategoryAdapter() {
+    fun initCategoryAdapter(list: CategoryModel) {
 
-        for(i in 0..2) {
-            var data = "Category"
-            list.add(data)
-        }
-
-            categoryArrayList = list
+            category = list
               categoryAdapter= activity?.let {
                CategoriesListAdapter(
                     requireContext(),
-                   categoryArrayList
+                   category
                 )
             }!!
             categories_rec_view.adapter = categoryAdapter
     }
 
-    fun initMostPopularAdapter() {
 
-        for(i in 0..4) {
-            var data = "Biscuits with chocolate"
-            listString.add(data)
-        }
+    fun initMostPopularAdapter(data: MostPopularProductsModel) {
 
-        mostPopularList = listString
+        mostPopularProduct = data
         mostPopularListAdapter = activity?.let {
             MostPopularListAdapter(
                 requireContext(),
-                mostPopularList
+                mostPopularProduct
             )
         }!!
         most_popular_list_rec_view.adapter = mostPopularListAdapter
@@ -116,17 +168,18 @@ class HomeFragment : Fragment() {
         most_popular_list_rec_view.addOnItemClickListener(object:
             OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
-                navController.navigate(R.id.action_homeFragment_to_productDetailsFragment)
-                mostPopularList.clear()
-                categoryArrayList.clear()
+                var bundle = Bundle()
+                var id = mostPopularProduct.data[position].id
+                 bundle.putInt("productId", id)
+
+                navController.navigate(R.id.action_homeFragment_to_productDetailsFragment,bundle)
             }
         })
-
-
     }
 
-
-
-
+    fun addScrollListener(){
+        categories_rec_view.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        }
+    }
 
    }

@@ -18,9 +18,15 @@
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:focusable="true"
+        app:iconifiedByDefault="false"
+        android:layout_height="60dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         app:queryHint="Search"
+        android:backgroundTint="#D3CCCC"
         android:layout_marginTop="100dp"
+        android:background="@drawable/search_view_background"
         />
 
 
@@ -48,9 +54,9 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="Discover"
+            android:text="@string/fragment_home_advert_button_text"
             app:cornerRadius="10dp"
-            android:textSize="1.5mm"
+            android:textSize="@dimen/fragment_home_advert_btn_text_size"
             android:background="@drawable/item_back_pink"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="70dp"
@@ -64,9 +70,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:fontFamily="@font/alfa_slab_one"
-                android:text="FIND CODE"
+                android:text="@string/fragment_home_advert_text"
                 android:textColor="@color/colorAccent"
-                android:textSize="2.5mm" />
+                android:textSize="@dimen/fragment_home_advert_text_size" />
 
             <TextView
                 android:id="@+id/text_part_two"
@@ -77,9 +83,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:fontFamily="@font/alfa_slab_one"
-                android:text="GET PRIZE"
+                android:text="@string/fragment_home_advert_text_part_two"
                 android:textColor="@color/colorAccent"
-                android:textSize="2.5mm" />
+                android:textSize="@dimen/fragment_home_advert_text_size" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -93,7 +99,7 @@
         android:layout_below="@+id/home_card_view"
         android:text="@string/first_recycler_title"
         android:textColor="@color/colorBlack"
-        android:textSize="3mm" />
+        android:textSize="@dimen/fragment_home_category_product_text_size" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categories_rec_view"
@@ -115,7 +121,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/acme"
         android:text="Most popular"
-        android:textSize="3mm"
+        android:textSize="@dimen/fragment_home_category_product_text_size"
         />
 
     <androidx.recyclerview.widget.RecyclerView

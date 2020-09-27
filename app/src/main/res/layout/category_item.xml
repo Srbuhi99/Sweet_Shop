@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/horizontal_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+        <RelativeLayout
+            android:id="@+id/card_rec_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:elevation="10dp"
+                android:layout_marginLeft="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/category_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/category_item_main_text_size"
+                        android:fontFamily="@font/acme" />
+
+                    <TextView
+                        android:id="@+id/product_count_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colortransparentWhite"
+                        android:layout_below="@+id/category_title"
+                        android:fontFamily="@font/acme"
+                        android:textSize="@dimen/category_item_text_size"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="3dp" />
+
+                    <TextView
+                        android:id="@+id/product_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colortransparentWhite"
+                        android:layout_below="@+id/category_title"
+                        android:layout_toEndOf="@+id/product_count_text"
+                        android:layout_marginTop="3dp"
+                        android:textSize="@dimen/category_item_text_size"
+                        android:layout_marginLeft="3dp"
+                        android:fontFamily="@font/acme"
+                        android:text="@string/category_item_product" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/category_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/image_fram"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="80dp" />
+
+
+    </RelativeLayout>
+</layout>

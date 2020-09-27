@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Sweet Shop</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_recycler_title">Categories</string>
+    <string name="category_item_product">product</string>
+    <string name="fragment_home_advert_button_text">Discover</string>
+    <string name="fragment_home_advert_text">FIND CODE</string>
+    <string name="fragment_home_advert_text_part_two">GET PRIZE</string>
+    <string name="fragment_product_detail_category_txt">Biscuits</string>
+    <string name="fragment_product_detail_description_txt">Napoleon Cake is traditional French dessert
+                   (Mille-feuille) that consists of several, flaky and crispy
+                    layers of Puff Puff Pastry filled with thick layers of pastry
+                    cream, with the top layer being covered in powdered sugar glaze
+                    with swirls of chocolate sugar glaze.</string>
+    <string name="fragment_product_detail_ingredience_txt">Ingredience</string>
+    <string name="fragment_product_detail_shelflife_txt">Shelf Life</string>
+    <string name="fragment_product_detail_efab_btn_text">Add to Basket</string>
+
+</resources>

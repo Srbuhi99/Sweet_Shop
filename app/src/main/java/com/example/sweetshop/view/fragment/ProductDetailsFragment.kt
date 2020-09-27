@@ -18,7 +18,6 @@ import com.example.sweetshop.api.ApiHelper
 import com.example.sweetshop.api.RetrofitBuilder
 import com.example.sweetshop.common.Status
 import com.example.sweetshop.databinding.FragmentProductDetailsBinding
-import com.example.sweetshop.model.MostPopularProductsModel
 import com.example.sweetshop.model.SearchByIdModel
 import com.example.sweetshop.utils.AddToBasketAnimUtil
 import com.example.sweetshop.viewmodel.ProductDetailsViewModel
@@ -42,6 +41,7 @@ class ProductDetailsFragment : Fragment(),View.OnClickListener{
         viewModel = ViewModelProviders.of(this,
             ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
         ).get(ProductDetailsViewModel::class.java)
+
         binding =
             DataBindingUtil.inflate(inflater,R.layout.fragment_product_details, container, false)
          binding.viewModel = viewModel
